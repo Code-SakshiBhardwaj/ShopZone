@@ -4,6 +4,7 @@
 
 .item img{
     width: 280px;
+    height:300px;
 }
 
 .item p{
@@ -41,6 +42,7 @@
 
     .item img{
         width: 220px;
+        height: 240px;
     }
 
     .item-price-old .item-price-new{
@@ -56,6 +58,7 @@
 
     .item img{
         width: 170px;
+        height: 190px;
     }
 
     .item-price-old .item-price-new{
@@ -71,6 +74,7 @@
 
     .item img{
         width: 120px;
+        height: 140px;
     }
 
     .item-price-old .item-price-new{
@@ -85,5 +89,6 @@
 
     .item img{
         width: 160px;
+        height: 180px;
     }
 }
