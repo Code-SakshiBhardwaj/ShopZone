@@ -72,6 +72,10 @@
     cursor: pointer;
 }
 
+.sizeSelected{
+    border: 1px solid #ff5a5a;
+}
+
 .cartitems-promocode{
     flex: 1;
     font-size: 16px;

@@ -103,6 +103,10 @@
     font-weight: 600;
 }
 
+.productdisplay-right-sizes .selectedSize{
+    border: 1px solid #ff4141;
+}
+
 @media(max-width:1280px){
     .productdisplay{
         margin: 0 60px;
