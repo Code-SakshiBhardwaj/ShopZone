@@ -136,6 +136,9 @@ const Users = mongoose.model('Users',{
     cartData:{
         type:Object,
     },
+    orderData:{
+        type:Object,
+    },
     date:{
         type:Date,
         default:Date.now,
@@ -153,11 +156,17 @@ app.post('/signup', async (req,res) => {
         cart[index]=0;
         
     }
+    let orders = {};
+    for (let index = 0; index < 300; index++) {
+        orders[index]=0;
+        
+    }
     const user = new Users({
         name:req.body.username,
         email:req.body.email,
         password:req.body.password,
         cartData:cart,
+        orderData:orders,
     });
 
     await user.save();
@@ -231,7 +240,7 @@ app.post('/addtocart',fetchUser, async(req,res) => {
     let userData = await Users.findOne({_id:req.user.id});
     userData.cartData[req.body.itemId] += 1;
     await Users.findOneAndUpdate({_id:req.user.id},{cartData:userData.cartData});
-    res.send("Added to cart");
+    res.json({message:"Added to cart"});
 })
 
 //  Creating endpoint for removing product from cart
@@ -240,13 +249,57 @@ app.post('/removefromcart', fetchUser, async(req,res) => {
     if(userData.cartData[req.body.itemId]>0)
     userData.cartData[req.body.itemId] -= 1;
     await Users.findOneAndUpdate({_id:req.user.id},{cartData:userData.cartData});
-    res.send("Removed from cart");
+    res.json({message:"Removed from cart"});
 })
+const getOrderData =(orderData, cartData) => {
+    const result = {};
+    Object.keys(orderData).forEach(key => {
+      result[key] = (orderData[key] || 0) + (cartData[key] || 0);
+    });
+    Object.keys(cartData).forEach(key => {
+      if (!orderData.hasOwnProperty(key)) {
+        result[key] = cartData[key];
+      }
+    });
+    return result;
+  }
 
+  const resetCart = (cart) => {
+    const result = {};
+    Object.keys(cart).forEach(key => {
+      result[key] = 0;
+    });
+    return result;
+  }
 //  Creating endpoint to get cart data
 app.post('/getcart',fetchUser,async(req,res) => {
     let userData = await Users.findOne({_id:req.user.id});
     res.json(userData?.cartData);
+})
+
+//  Creating end point for placing order
+app.post('/placeorder',fetchUser, async(req,res) => {
+    let userData = await Users.findOne({_id:req.user.id});
+    userData.orderData = getOrderData(userData.orderData,userData.cartData);
+    userData.cartData = resetCart(userData.cartData);
+    await Users.findOneAndUpdate({_id:req.user.id},{orderData:userData.orderData});
+    await Users.findOneAndUpdate({_id:req.user.id},{cartData:userData.cartData});
+    res.send({message:"Order placed!"})
+})
+
+//  Creating endpoint to get orders data
+app.post('/getorders',fetchUser,async(req,res) => {
+    let userData = await Users.findOne({_id:req.user.id});
+    res.json(userData?.orderData);
+})
+
+//  Creating endpoint for cancelling order
+app.post('/cancelOrder', fetchUser, async(req,res) => {
+    let userData = await Users.findOne({_id:req.user.id});
+    if(userData.orderData[req.body.itemId]>0)
+    userData.orderData[req.body.itemId] -= 1;
+    await Users.findOneAndUpdate({_id:req.user.id},{orderData:userData.orderData});
+    res.json({message:"Order Cancelled!"});
 })
 
 app.listen(port,(error)=>{

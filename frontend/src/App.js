@@ -10,6 +10,7 @@ import Shop from './pages/Shop';
 import men_banner from './components/assets/banner_mens.png';
 import women_banner from './components/assets/banner_women.png';
 import kids_banner from './components/assets/banner_kids.png';
+import Orders from './pages/Orders';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         </Route>
         <Route path='/cart' element={<Cart/>} />
         <Route path='/login' element={<LoginSignup/>} />
+        <Route path='/orders' element={<Orders />} />
       </Routes>
       <Footer/>
       </BrowserRouter>

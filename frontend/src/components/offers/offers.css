@@ -54,6 +54,7 @@
 
 @media(max-width:1280px){
     .offers{
+        height: 40vh;
         padding: 0 80px;
         margin-bottom: 120px;
     }

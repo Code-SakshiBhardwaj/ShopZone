@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import './CSS/LoginSignup.css'
+import Popup from '../components/popup/popup';
+import errorImg from '../components/assets/icons/error.png'
 
 const LoginSignup = () => {
   const [state,setState] = useState("Login");
@@ -8,6 +10,12 @@ const LoginSignup = () => {
     email:"",
     password:"",
   })
+  const [errorMsg,setErrorMsg] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
+
+  const togglePopup = () => {
+    setShowPopup(!showPopup);
+  };
 
   const changeHandler = (e) => {
     setFormData({...formData,[e.target.name]:e.target.value})
@@ -29,7 +37,8 @@ const LoginSignup = () => {
       window.location.replace('/');
     }
     else{
-      alert(responseData.error);
+      setErrorMsg(responseData.error);
+      togglePopup();
     }
   }
   const signup = async () => {
@@ -48,7 +57,8 @@ const LoginSignup = () => {
       window.location.replace('/');
     }
     else{
-      alert(responseData.error);
+      setErrorMsg(responseData.error);
+      togglePopup();
     }
   }
   return (
@@ -73,6 +83,9 @@ const LoginSignup = () => {
           <p>By continuing, i agree to the terms of use & privacy policy.</p>
         </div>
       </div>
+
+      <Popup show={showPopup} handleClose={togglePopup} message={errorMsg} image={errorImg}></Popup>
+
       
     </div>
   )

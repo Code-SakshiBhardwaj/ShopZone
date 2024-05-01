@@ -5,6 +5,7 @@ import cart_icon from '../assets/cart_icon.png'
 import { Link } from 'react-router-dom'
 import { ShopContext } from '../../context/ShopContext'
 import nav_dropdown from '../assets/nav_dropdown.jpg'
+import order from '../assets/icons/order.png'
 
 const Navbar = () => {
     const [menu,setMenu] = useState('shop');
@@ -35,6 +36,8 @@ const Navbar = () => {
             
             <Link to='/cart'><img src={cart_icon} alt=''/></Link> 
             <div className="nav-cart-count">{getTotalCartItems()}</div>
+
+            {localStorage.getItem('auth-token')?<Link to='/orders'><img src={order} alt="" style={{height:"38px",width:"44px"}}/></Link>:null}
         </div>
     </div>
   )
