@@ -10,7 +10,7 @@
 
 .orderitems-format-main{ 
     display: grid;
-    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr;
     align-items: center;
     gap: 75px;
     padding: 20px 0;
@@ -118,7 +118,7 @@
     }
 
     .orderitems-format-main{
-        grid-template-columns: 0.5fr 3fr 0.5fr 0.5fr 0.5fr 0.5fr;
+        grid-template-columns: 0.5fr 3fr 0.5fr 0.5fr 0.5fr;
         gap: 20px;
         padding: 15px 0;
         font-size: 15px;
@@ -167,6 +167,7 @@
         margin-left: -125px;
     }
 }
+
 
 @media(max-width:500px){
     .orderitems-format-main{

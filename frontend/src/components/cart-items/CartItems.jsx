@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './CartItems.css'
 import { ShopContext } from '../../context/ShopContext'
-import remove_icon from '../assets/cart_cross_icon.png'
 import Payment from '../payment/payment'
 
 const CartItems = () => {
-    const {all_product, cartItems, getCart, removeFromCart, getTotalCartAmount} = useContext(ShopContext);
+    const {all_product, cartItems, getCart, removeFromCart, getTotalCartAmount, addToCart} = useContext(ShopContext);
     const [showPaymentPopup, setShowPaymentPopup] = useState(false);
 
     useEffect(() => {
@@ -23,7 +22,6 @@ const CartItems = () => {
             <p>Price</p>
             <p>Quantity</p>
             <p>Total</p>
-            <p>Remove</p>
         </div>
         <hr/>
         {all_product.map((item)=>{
@@ -33,9 +31,10 @@ const CartItems = () => {
                     <img src={item.image} alt="" className='carticon-product-icon'/>
                     <p>{item.name}</p>
                     <p>${item.new_price}</p>
+                    <p><span className="cartitems-change-quantity" onClick={()=>addToCart(item.id)} >+</span>
                     <button className='cartitems-quantity'>{cartItems[item.id]}</button>
+                    <span className="cartitems-change-quantity" onClick={()=>removeFromCart(item.id)} >-</span></p>
                     <p>${item.new_price*cartItems[item.id]}</p>
-                    <img className='cartitems-remove-icon' src={remove_icon} onClick={()=>removeFromCart(item.id)} alt="" />
                 </div>
                 <hr/>
             </div>

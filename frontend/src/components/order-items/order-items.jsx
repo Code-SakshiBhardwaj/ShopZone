@@ -1,6 +1,5 @@
 import { useContext, useEffect } from "react";
 import { ShopContext } from "../../context/ShopContext";
-import remove_icon from '../assets/cart_cross_icon.png';
 import './order-items.css'
 
 const OrderItems = () => {
@@ -28,7 +27,7 @@ const OrderItems = () => {
                   <p>${item.new_price}</p>
                   <button className='orderitems-quantity'>{orderItems[item.id]}</button>
                   <p>${item.new_price*orderItems[item.id]}</p>
-                  <img className='orderitems-remove-icon' src={remove_icon} onClick={()=>cancelOrder(item.id)} alt="" />
+                  {/* <img className='orderitems-remove-icon' src={remove_icon} onClick={()=>cancelOrder(item.id)} alt="" /> */}
               </div>
               <hr/>
           </div>
